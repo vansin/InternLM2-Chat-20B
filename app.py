@@ -17,7 +17,7 @@ def on_btn_click():
 @st.cache_resource
 def load_model():
     model = (
-        AutoModelForCausalLM.from_pretrained(mode_name_or_path, load_in_4bit=True, trust_remote_code=True)
+        AutoModelForCausalLM.from_pretrained(mode_name_or_path, load_in_4bit=True, trust_remote_code=True, device_map="auto")
         .to(torch.bfloat16)
         .cuda()
     )
