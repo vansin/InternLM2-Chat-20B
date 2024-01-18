@@ -5,14 +5,14 @@ import streamlit as st
 
 from modelscope import snapshot_download
 
+def on_btn_click():
+    del st.session_state.messages
 # 在侧边栏中创建一个标题和一个链接
 with st.sidebar:
-    st.markdown("## InternLM LLM")
-    "[InternLM](https://github.com/InternLM/InternLM.git)"
-    # 创建一个滑块，用于选择最大长度，范围在0到1024之间，默认值为512
-    max_length = st.slider("max_length", 0, 1024, 512, step=1)
-    top_p = st.slider('top_p', 0.0, 1.0, 0.6, step=0.01)
-    temperature = st.slider('temperature', 0.0, 1.0, 0.95, step=0.01)
+    max_length = st.slider("Max Length", min_value=32, max_value=2048, value=2048)
+    top_p = st.slider("Top P", 0.0, 1.0, 0.8, step=0.01)
+    temperature = st.slider("Temperature", 0.0, 1.0, 0.7, step=0.01)
+    st.button("Clear Chat History", on_click=on_btn_click)
     system_prompt = st.text_input("System_Prompt", "你是一个人工智能助手")
 
 # 创建一个标题和一个副标题
