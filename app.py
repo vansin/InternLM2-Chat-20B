@@ -11,7 +11,9 @@ with st.sidebar:
     "[InternLM](https://github.com/InternLM/InternLM.git)"
     # 创建一个滑块，用于选择最大长度，范围在0到1024之间，默认值为512
     max_length = st.slider("max_length", 0, 1024, 512, step=1)
-    system_prompt = st.text_input("System_Prompt", "")
+    top_p = st.slider('top_p', 0.0, 1.0, 0.6, step=0.01)
+    temperature = st.slider('temperature', 0.0, 1.0, 0.95, step=0.01)
+    system_prompt = st.text_input("System_Prompt", "你是一个人工智能助手")
 
 # 创建一个标题和一个副标题
 st.title("💬 InternLM2-Chat-20B-4bits")
