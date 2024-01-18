@@ -65,7 +65,7 @@ def main():
     user_avator = "assets/user.png"
     robot_avator = "assets/robot.png"
 
-    st.title("InternLM2-Chat-7B")
+    st.title("InternLM2-Chat-20B-4bits")
 
     generation_config = prepare_generation_config()
 
