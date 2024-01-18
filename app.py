@@ -18,8 +18,6 @@ def on_btn_click():
 def load_model():
     model = (
         AutoModelForCausalLM.from_pretrained(mode_name_or_path, load_in_4bit=True, trust_remote_code=True, device_map="auto")
-        .to(torch.bfloat16)
-        .cuda()
     )
     tokenizer = AutoTokenizer.from_pretrained(mode_name_or_path, trust_remote_code=True)
     return model, tokenizer
