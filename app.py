@@ -9,19 +9,17 @@ from modelscope import snapshot_download
 with st.sidebar:
     st.markdown("## InternLM LLM")
     "[InternLM](https://github.com/InternLM/InternLM.git)"
-    "[开源大模型食用指南 self-llm](https://github.com/datawhalechina/self-llm.git)"
-    "[Chat嬛嬛](https://github.com/KMnO4-zx/huanhuan-chat.git)"
     # 创建一个滑块，用于选择最大长度，范围在0到1024之间，默认值为512
     max_length = st.slider("max_length", 0, 1024, 512, step=1)
-    system_prompt = st.text_input("System_Prompt", "现在你要扮演皇帝身边的女人--甄嬛")
+    system_prompt = st.text_input("System_Prompt", "")
 
 # 创建一个标题和一个副标题
-st.title("💬 InternLM2-Chat-7B 嬛嬛版")
-st.caption("🚀 A streamlit chatbot powered by InternLM2 QLora")
+st.title("💬 InternLM2-Chat-20B-4bits")
+st.caption("🚀 A streamlit chatbot powered by InternLM2")
 
 # 定义模型路径
 
-model_id = 'kmno4zx/huanhuan-chat-internlm2'
+model_id = 'Shanghai_AI_Laboratory/internlm2-chat-20b'
 
 mode_name_or_path = snapshot_download(model_id, revision='master')
 
@@ -32,11 +30,11 @@ def get_model():
     # 从预训练的模型中获取tokenizer
     tokenizer = AutoTokenizer.from_pretrained(mode_name_or_path, trust_remote_code=True)
     # 从预训练的模型中获取模型，并设置模型参数
-    model = AutoModelForCausalLM.from_pretrained(mode_name_or_path, trust_remote_code=True, torch_dtype=torch.bfloat16).cuda()
+    model = AutoModelForCausalLM.from_pretrained(mode_name_or_path, trust_remote_code=True, load_in_4bit=True, device_map="auto")
     model.eval()  
     return tokenizer, model
 
-# 加载Chatglm3的model和tokenizer
+# 加载InternLM的model和tokenizer
 tokenizer, model = get_model()
 
 # 如果session_state中没有"messages"，则创建一个包含默认消息的列表
