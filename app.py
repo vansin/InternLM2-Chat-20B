@@ -6,8 +6,6 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.utils import logging
 
 from modelscope import snapshot_download
-model_id = 'Shanghai_AI_Laboratory/internlm2-chat-20b'
-mode_name_or_path = snapshot_download(model_id, revision='master')
 logger = logging.get_logger(__name__)
 
 def on_btn_click():
@@ -16,6 +14,8 @@ def on_btn_click():
 
 @st.cache_resource
 def load_model():
+    model_id = 'Shanghai_AI_Laboratory/internlm2-chat-20b'
+    mode_name_or_path = snapshot_download(model_id, revision='master')
     model = (
         AutoModelForCausalLM.from_pretrained(mode_name_or_path, load_in_4bit=True, trust_remote_code=True, device_map="auto")
     )
