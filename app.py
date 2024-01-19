@@ -17,7 +17,7 @@ def load_model():
     model_id = 'Shanghai_AI_Laboratory/internlm2-chat-20b'
     mode_name_or_path = snapshot_download(model_id, revision='master')
     model = (
-        AutoModelForCausalLM.from_pretrained(mode_name_or_path, load_in_4bit=True, trust_remote_code=True, device_map="auto")
+        AutoModelForCausalLM.from_pretrained(mode_name_or_path, trust_remote_code=True, device_map="auto")
     )
     tokenizer = AutoTokenizer.from_pretrained(mode_name_or_path, trust_remote_code=True)
     return model, tokenizer
